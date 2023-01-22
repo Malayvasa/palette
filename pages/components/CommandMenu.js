@@ -91,23 +91,21 @@ export default function CommandMenu() {
             <div className=" flex flex-col w-full h-64 overflow-y-scroll">
               {albums &&
                 albums.map((album, key) => (
-                  <div>
-                    <div
-                      key={key}
-                      onClick={() => {
-                        handleSelect(album);
-                      }}
-                      className="cursor-pointer  py-2 px-4 flex flex-row w-72 md:w-96 items-center bg-white bg-opacity-5 hover:bg-opacity-10"
-                    >
-                      <img
-                        src={album.images[2].url}
-                        width={50}
-                        height={50}
-                        className="rounded-sm"
-                      />
-                      <div className="ml-4 text-sm text-white text-opacity-60">
-                        {album.name}
-                      </div>
+                  <div
+                    key={key}
+                    onClick={() => {
+                      handleSelect(album);
+                    }}
+                    className="cursor-pointer  py-2 px-4 flex flex-row w-72 md:w-96 items-center bg-white bg-opacity-5 hover:bg-opacity-10"
+                  >
+                    <img
+                      src={album.images[2].url}
+                      width={50}
+                      height={50}
+                      className="rounded-sm"
+                    />
+                    <div className="ml-4 text-sm text-white text-opacity-60">
+                      {album.name}
                     </div>
                   </div>
                 ))}
