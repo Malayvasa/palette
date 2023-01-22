@@ -10,10 +10,21 @@
   },
   "dependencies": {
     "@next/font": "13.1.4",
+    "cmdk": "^0.1.21",
+    "color-sorter": "^5.0.3",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.4",
+    "framer-motion": "^8.5.0",
     "next": "13.1.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-color-extractor": "^1.1.2",
+    "react-copy-to-clipboard": "^5.1.0",
+    "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.4"
   }
 }
