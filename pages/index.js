@@ -16,6 +16,21 @@ export default function Home() {
   const [colors, setColors] = useState([]);
   const notify = () => toast('Here is your toast.');
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { scale: 0.5, y: -50, opacity: 0 },
+    show: { scale: 1, y: 0, opacity: 1 },
+  };
+
   const postHogExport = () => {
     const preset = {
       album: selectedAlbum.name,
@@ -40,13 +55,13 @@ export default function Home() {
 
   return (
     <div
-      className="bg-black min-h-screen flex items-center justify-center py-8 p-2 md:p-0"
+      className="bg-black overflow-hidden min-h-screen flex items-center justify-center py-8 p-2 md:p-0"
       style={{
-        background: `radial-gradient(circle at right, rgba(0,0,0,1) 60%, ${colors[0]} 100%)`,
+        background: `radial-gradient(circle at bottom, ${colors[0]} 0%, rgba(0,0,0,1) 60% )`,
       }}
     >
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="  h-max gap-8 flex flex-col md:flex-row w-full items-center md:items-start justify-center">
+      <div className="  h-max gap-8 flex flex-col md:flex-row w-full items-center justify-center">
         <CommandMenu />
         <ColorExtractor className="hidden" getColors={setColors}>
           <img
@@ -60,23 +75,20 @@ export default function Home() {
         </ColorExtractor>
         <AnimatePresence>
           {selectedAlbum && (
-            <div className="flex flex-col md:flex-col-reverse items-center gap-8">
+            <div className="flex flex-col md:flex-row-reverse items-center gap-8">
               <div className="">
                 <motion.div
-                  initial={{ y: -10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -10, opacity: 0 }}
+                  variants={container}
+                  initial="hidden"
+                  animate="show"
+                  exit="hidden"
                   key={colors}
-                  staggerChildren={1}
                   className="flex flex-row gap-2 backdrop-blur-xl w-max justify-around bg-black bg-opacity-5 border-2 border-white border-opacity-10 p-4 rounded-md"
                 >
                   {colors.map((color, key) => {
                     return (
                       <motion.div
-                        initial={{ y: -50, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -50, opacity: 0 }}
-                        staggerChildren={1}
+                        variants={item}
                         key={color[key]}
                         className="w-8 h-8 md:w-12 md:h-12 rounded-md"
                         style={{ backgroundColor: color }}
@@ -97,6 +109,7 @@ export default function Home() {
                         <svg
                           width="32px"
                           height="32px"
+                          className="w-6 h-6 md:w-8 md:h-8"
                           stroke-width="1.5"
                           viewBox="0 0 24 24"
                           fill="none"
@@ -125,7 +138,7 @@ export default function Home() {
                   )}
                 </motion.div>
               </div>
-              <div className="z-0 relative conic">
+              <div className="z-0 relative conic  p-8 md:p-12">
                 <motion.div
                   initial={{ y: -30, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -153,8 +166,8 @@ export default function Home() {
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',
-                        width: '300px',
-                        height: '300px',
+                        width: '250px',
+                        height: '250px',
                       }}
                     ></div>
                   </div>
