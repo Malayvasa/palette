@@ -27,7 +27,6 @@
   .conic {
     border-radius: 12px;
     overflow: hidden;
-    padding: 0.3rem;
  }
   .conic::before {
     content: '';
@@ -40,7 +39,7 @@
     background-repeat: no-repeat;
     background-position: 0 0;
     background-image: conic-gradient(transparent 30%, var(--border-color) 50%, transparent 100%);
-    animation: rotate 6s linear infinite;
+    animation: rotate 12s linear infinite;
     
  }
   .conic::after {
