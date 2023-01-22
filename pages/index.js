@@ -9,11 +9,27 @@ import { motion, AnimatePresence } from 'framer-motion';
 import colorSort from 'color-sorter';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import toast, { Toaster } from 'react-hot-toast';
+import posthog from 'posthog-js';
 
 export default function Home() {
   const { selectedAlbum, setSelectedAlbum } = useContext(AlbumContext);
   const [colors, setColors] = useState([]);
   const notify = () => toast('Here is your toast.');
+
+  const postHogExport = () => {
+    const preset = {
+      album: selectedAlbum.name,
+      artist: selectedAlbum.artists[0].name,
+      colors: colors,
+    };
+    return preset;
+  };
+
+  useEffect(() => {
+    posthog.init('phc_EVZGmJUZIJpHpoCH8MGOyQIH309i78N9bQbOPEN21PF', {
+      api_host: 'https://app.posthog.com',
+    });
+  }, []);
 
   useEffect(() => {
     let sortedColors = colors;
@@ -51,7 +67,7 @@ export default function Home() {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -10, opacity: 0 }}
                   key={colors}
-                  staggerChildren={0.1}
+                  staggerChildren={1}
                   className="flex flex-row gap-2 backdrop-blur-xl w-max justify-around bg-black bg-opacity-5 border-2 border-white border-opacity-10 p-4 rounded-md"
                 >
                   {colors.map((color, key) => {
@@ -60,7 +76,8 @@ export default function Home() {
                         initial={{ y: -50, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: -50, opacity: 0 }}
-                        key={key}
+                        staggerChildren={1}
+                        key={color[key]}
                         className="w-8 h-8 md:w-12 md:h-12 rounded-md"
                         style={{ backgroundColor: color }}
                       />
@@ -73,6 +90,7 @@ export default function Home() {
                         toast('Palette Copied', {
                           icon: '🎉',
                         });
+                        posthog.capture('Palette Copied', postHogExport());
                       }}
                     >
                       <div className="w-8 h-8 md:w-12 flex items-center justify-center md:h-12 rounded-md bg-white bg-opacity-20 opacity-40 backdrop-blur-lg">
