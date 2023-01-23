@@ -3,7 +3,7 @@ import { ColorExtractor } from 'react-color-extractor';
 export default function PaletteExtractor({ selectedAlbum, setColors }) {
   return (
     <div>
-      {selectedAlbum.length != 0 ? (
+      {selectedAlbum && (
         <>
           <ColorExtractor className="hidden" getColors={setColors}>
             <img
@@ -16,8 +16,6 @@ export default function PaletteExtractor({ selectedAlbum, setColors }) {
             ></img>
           </ColorExtractor>
         </>
-      ) : (
-        <></>
       )}
     </div>
   );

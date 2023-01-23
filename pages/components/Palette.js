@@ -94,7 +94,7 @@ export default function Palette({ colors }) {
 
   return (
     <div className="my-8 lg:ml-8 flex flex-col gap-0">
-      {colors.length != 0 ? (
+      {colors && (
         <>
           <div className="">
             <motion.div
@@ -231,8 +231,6 @@ export default function Palette({ colors }) {
             </div>
           </motion.div>
         </>
-      ) : (
-        <></>
       )}
     </div>
   );

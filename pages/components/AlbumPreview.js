@@ -11,7 +11,7 @@ export default function AlbumPreview({ selectedAlbum }) {
 
   return (
     <div className="relative">
-      {selectedAlbum.length != 0 ? (
+      {selectedAlbum && (
         <>
           <motion.div
             initial={{
@@ -53,8 +53,6 @@ export default function AlbumPreview({ selectedAlbum }) {
             </motion.div>
           </div>
         </>
-      ) : (
-        <></>
       )}
     </div>
   );
