@@ -48,7 +48,7 @@ export default function CommandMenu() {
   return (
     <div className="centered">
       <div>
-        <div className="bg-black bg-opacity-0 rounded-b-md md:rounded-md border-2 border-white border-opacity-10">
+        <div className="bg-black bg-opacity-0 rounded-md border-2 border-white border-opacity-10">
           <div className="flex flex-row gap-2 w-full text-white placeholder-white placeholder-opacity-80 rounded-t-md outline-none bg-white bg-opacity-0  p-2 md:p-4">
             <div className="opacity-40">
               <svg

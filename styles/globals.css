@@ -51,7 +51,7 @@
     background-repeat: no-repeat;
     background-position: 0 0;
     background-image: conic-gradient(transparent 30%, var(--border-color) 50%, transparent 100%);
-    animation: rotate 12s linear infinite;
+    animation: rotate 18s linear infinite;
     
  }
   .conic::after {
@@ -65,4 +65,36 @@
     background: rgba(0, 0, 0, 0.3);
     border-radius: 5px;
  }
+
+ .conic_title {
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+.conic_title::before {
+  content: '';
+  position: absolute;
+  z-index: -2;
+  left: -4%;
+  transform-origin: center;
+  top: -200%;
+  width: 110%;
+  height: 500%;
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  background: rgba(255, 255,255, 0.1);
+  background-image: conic-gradient(transparent 30%, var(--border-color) 50%, transparent 90%);
+  animation: rotate 4s linear infinite;
+}
+.conic_title::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 3px;
+  top: 3px;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 6px;
+}
   
