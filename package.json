@@ -11,6 +11,7 @@
   "dependencies": {
     "@next/font": "13.1.4",
     "cmdk": "^0.1.21",
+    "color": "^4.2.3",
     "color-sorter": "^5.0.3",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.4",

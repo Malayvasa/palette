@@ -48,8 +48,8 @@ export default function CommandMenu() {
   return (
     <div className="centered">
       <div>
-        <div className="bg-black bg-opacity-20 rounded-md border-2 border-white border-opacity-10">
-          <div className="flex flex-row gap-2 w-full text-white placeholder-white placeholder-opacity-80 rounded-t-md outline-none bg-white bg-opacity-20 p-2 md:p-4">
+        <div className="bg-black bg-opacity-0 rounded-b-md md:rounded-md border-2 border-white border-opacity-10">
+          <div className="flex flex-row gap-2 w-full text-white placeholder-white placeholder-opacity-80 rounded-t-md outline-none bg-white bg-opacity-0  p-2 md:p-4">
             <div className="opacity-40">
               <svg
                 width="32px"
@@ -87,19 +87,24 @@ export default function CommandMenu() {
             />
           </div>
 
-          <div className=" w-[300px] md:w-96">
-            <div className=" flex flex-col w-full h-64 overflow-y-scroll">
-              {albums &&
-                albums.map((album, key) => (
+          <div className=" max-w-[300px] w-96 ">
+            {albums.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                key={albums}
+                className="border-t-2 border-white border-opacity-10 flex flex-col w-full max-h-72 overflow-y-scroll"
+              >
+                {albums.map((album, key) => (
                   <div
                     key={key}
                     onClick={() => {
                       handleSelect(album);
                     }}
-                    className="cursor-pointer  py-2 px-4 flex flex-row w-72 md:w-96 items-center bg-white bg-opacity-5 hover:bg-opacity-10"
+                    className="cursor-pointer  py-2 px-4 flex flex-row max-w-[300px] w-96 items-center bg-white bg-opacity-0 hover:bg-opacity-5"
                   >
                     <img
-                      src={album.images[2].url}
+                      src={album.images[0].url}
                       width={50}
                       height={50}
                       className="rounded-sm"
@@ -109,7 +114,8 @@ export default function CommandMenu() {
                     </div>
                   </div>
                 ))}
-            </div>
+              </motion.div>
+            )}
           </div>
         </div>
       </div>
