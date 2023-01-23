@@ -23,7 +23,7 @@ export default function HeroTitle({ backgroundColor }) {
   return (
     <>
       <div className="text-white w-[304px] text-center items-center justify-center flex font-semibold md:mt-32 md:mb-0 text-3xl md:text-4xl">
-        <div className="border-white conic_title relative w-full bg-black bg-opacity-10 p-4 border-opacity-10  rounded-t-md md:rounded-md flex flex-row items-end justify-center hero_text gap-2">
+        <div className="border-white conic_title relative w-full bg-black bg-opacity-10 p-4 border-opacity-10 flex flex-row items-end justify-center hero_text gap-2">
           <div>album</div>
           <div className="">
             <svg

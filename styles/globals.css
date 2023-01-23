@@ -74,6 +74,7 @@
 .conic_title::before {
   content: '';
   position: absolute;
+  border-radius: 6px;
   z-index: -2;
   left: -4%;
   transform-origin: center;
