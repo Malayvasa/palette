@@ -18,7 +18,7 @@ export default function Home() {
       <Background backgroundColor={colors[0]} />
       <Toaster position="top-center" reverseOrder={false} />
       <HeroTitle backgroundColor={colors[0]} />
-      <div className="flex flex-grow flex-col md:mb-32 md:gap-8 lg:gap-0 md:flex-row items-center justify-center">
+      <div className="flex flex-grow flex-col md:mb-12 md:gap-8 lg:gap-0 md:flex-row items-center justify-center">
         <div className=" h-max gap-8 flex flex-col md:flex-row w-full items-center justify-center">
           <AnimatePresence>
             <motion.div
