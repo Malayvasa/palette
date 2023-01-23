@@ -8,10 +8,10 @@ function AlbumProvider({ children }) {
     name: '',
     images: [
       {
-        url: 'https://i.scdn.co/image/ab67616d0000b273dc30583ba717007b00cceb25',
+        url: 'https://i.scdn.co/image/ab67616d0000b27353f6fa0d2589c6a7174f4b81',
       },
       {
-        url: 'https://i.scdn.co/image/ab67616d0000b273dc30583ba717007b00cceb25',
+        url: 'https://i.scdn.co/image/ab67616d0000b27353f6fa0d2589c6a7174f4b81',
       },
     ],
   });
