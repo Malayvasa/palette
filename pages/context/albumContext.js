@@ -5,9 +5,15 @@ export const AlbumContext = createContext([]);
 function AlbumProvider({ children }) {
   const [albums, setAlbums] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState({
-    name: 'Album Name',
-    artists: [{ name: 'Artist Name' }],
-    images: [{ url: '/images/album.png' }, { url: '/images/album.png' }],
+    name: '',
+    images: [
+      {
+        url: 'https://i.scdn.co/image/ab67616d0000b273dc30583ba717007b00cceb25',
+      },
+      {
+        url: 'https://i.scdn.co/image/ab67616d0000b273dc30583ba717007b00cceb25',
+      },
+    ],
   });
 
   return (

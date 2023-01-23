@@ -4,6 +4,7 @@
 
 :root{
   --border-color:#fff 10%;
+  --image: url("https://i.scdn.co/image/ab67616d00001e02a048415db06a5b6fa7ec4e1a");
 }
 
 .centered {
@@ -18,6 +19,17 @@
     100% {
       transform: rotate(1turn);
    }
+ }
+
+ .hero_text{
+  color: #fff;
+ }
+
+ .albumImage{
+  background-image: var(--image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
  }
 
  .customBorder{
