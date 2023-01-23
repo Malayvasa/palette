@@ -131,7 +131,7 @@ export default function Palette({ colors }) {
                     paletteToast('HEX');
                   }}
                 >
-                  <div className="bg-white w-32 flex items-center justify-center rounded-md bg-opacity-5 hover:bg-opacity-10 transition-colors">
+                  <div className="bg-white w-32 cursor-pointer flex items-center justify-center rounded-md bg-opacity-5 hover:bg-opacity-10 transition-colors">
                     HEX
                   </div>
                 </CopyToClipboard>
@@ -141,7 +141,7 @@ export default function Palette({ colors }) {
                     paletteToast('RGB');
                   }}
                 >
-                  <div className="bg-white w-32 flex items-center justify-center rounded-md bg-opacity-5 hover:bg-opacity-10 transition-colors">
+                  <div className="bg-white w-32 cursor-pointer flex items-center justify-center rounded-md bg-opacity-5 hover:bg-opacity-10 transition-colors">
                     RGB
                   </div>
                 </CopyToClipboard>
@@ -151,7 +151,7 @@ export default function Palette({ colors }) {
                     paletteToast('HSL');
                   }}
                 >
-                  <div className="bg-white w-32 flex items-center justify-center rounded-md bg-opacity-5 hover:bg-opacity-10 transition-colors">
+                  <div className="bg-white w-32 cursor-pointer flex items-center justify-center rounded-md bg-opacity-5 hover:bg-opacity-10 transition-colors">
                     HSL
                   </div>
                 </CopyToClipboard>
@@ -181,7 +181,7 @@ export default function Palette({ colors }) {
                 }}
               >
                 <motion.div
-                  className="w-full h-8 px-2 justify-between rounded-md flex items-center bg-white bg-opacity-5 hover:bg-opacity-10 transition-colors"
+                  className="w-full cursor-pointer h-8 px-2 justify-between rounded-md flex items-center bg-white bg-opacity-5 hover:bg-opacity-10 transition-colors"
                   variants={values}
                   key={colors[selectedColorIndex]}
                 >
@@ -199,7 +199,7 @@ export default function Palette({ colors }) {
                 }}
               >
                 <motion.div
-                  className="w-full h-8 px-2 justify-between rounded-md flex items-center bg-white bg-opacity-5 hover:bg-opacity-10 transition-colors"
+                  className="w-full cursor-pointer h-8 px-2 justify-between rounded-md flex items-center bg-white bg-opacity-5 hover:bg-opacity-10 transition-colors"
                   variants={values}
                   key={colors[selectedColorIndex]}
                 >
@@ -218,7 +218,7 @@ export default function Palette({ colors }) {
                 }}
               >
                 <motion.div
-                  className="w-full h-8 px-2 justify-between rounded-md flex items-center bg-white bg-opacity-5 hover:bg-opacity-10 transition-colors"
+                  className="w-full cursor-pointer h-8 px-2 justify-between rounded-md flex items-center bg-white bg-opacity-5 hover:bg-opacity-10 transition-colors"
                   variants={values}
                   key={colors[selectedColorIndex]}
                 >
