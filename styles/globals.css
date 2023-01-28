@@ -40,6 +40,7 @@ body {
   border-radius: 12px;
   overflow: hidden;
 }
+
 .conic::before {
   content: '';
   position: absolute;
@@ -69,53 +70,26 @@ body {
   border-radius: 5px;
 }
 
-.conic_title {
-  border-radius: 6px;
-  border-radius: 6px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  overflow: hidden;
-  position: relative;
-}
-.conic_title::before {
+.before_conic_title {
   content: '';
   position: absolute;
-  border-radius: 6px;
   z-index: -2;
-  left: -4%;
+  left: -5%;
   transform-origin: center;
-  top: -200%;
+  top: -195%;
   width: 110%;
   height: 500%;
   background-repeat: repeat-x;
   background-position: 0 0;
   background: rgba(255, 255, 255, 0.1);
   background-image: conic-gradient(
-    transparent 30%,
-    var(--border-color) 50%,
-    transparent 90%
+    transparent 0%,
+    var(--border-color) 45%,
+    rgba(255, 255, 255, 0.9) 50%,
+    var(--border-color) 55%,
+    transparent 70%
   );
-  animation: rotate 4s linear infinite;
+  animation: rotate 6s linear infinite;
 }
-.conic_title::after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  left: 3px;
-  top: 3px;
-  width: calc(100% - 6px);
-  height: calc(100% - 6px);
-  background: rgba(0, 0, 0, 0.9);
-  border-radius: 6px;
-  border-radius: 6px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-}
+
+/* Rectangle 22 */
