@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AlbumContext } from '../context/albumContext';
+import { AlbumContext } from '../context/context';
 
 export default function List() {
   const { albums } = useContext(AlbumContext);

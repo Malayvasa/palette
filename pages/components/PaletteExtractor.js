@@ -5,16 +5,11 @@ export default function PaletteExtractor({ selectedAlbum, setColors }) {
     <div>
       {selectedAlbum && (
         <>
-          <ColorExtractor className="hidden" getColors={setColors}>
-            <img
-              className="rounded-md hidden"
-              src={selectedAlbum.images[0].url}
-              alt="Album Cover"
-              onClick={() => {
-                console.log(colors);
-              }}
-            ></img>
-          </ColorExtractor>
+          <ColorExtractor
+            src={selectedAlbum.images[0].url}
+            className="hidden"
+            getColors={setColors}
+          ></ColorExtractor>
         </>
       )}
     </div>

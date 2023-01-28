@@ -1,6 +1,11 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { Context } from '../context/context';
+import { useContext } from 'react';
 
-export default function Background({ backgroundColor }) {
+export default function Background() {
+  const { primaryColor } = useContext(Context);
+  const backgroundColor = primaryColor ? primaryColor : '#fff';
+
   const bg = {
     hidden: { opacity: 0 },
     show: {

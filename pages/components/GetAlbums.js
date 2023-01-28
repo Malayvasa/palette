@@ -1,4 +1,4 @@
-import { AlbumContext } from '../context/albumContext';
+import { AlbumContext } from '../context/context';
 import React, { useContext, useState } from 'react';
 
 export default function GetAlbums() {
