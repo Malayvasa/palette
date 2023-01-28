@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
 import { Command } from 'cmdk';
-import List from './List';
 import { Context } from '../context/context';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
