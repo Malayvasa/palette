@@ -1,6 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import Palette from './Palette';
 import colorify from 'colorify.js';
 
@@ -36,14 +35,13 @@ export default function AlbumPreview({ colors, selectedAlbum }) {
             }}
             className="absolute w-[250px] md:w-[300px] xl:w-[400px] aspect-square  "
           >
-            <Image
-              priority
+            <img
               src={selectedAlbum.images[0].url}
               alt={`Cover of the album ${selectedAlbum.name}`}
-              width={400}
-              height={400}
-              objectFit="cover"
-              className="rounded-xl "
+              width="400"
+              height="400"
+              style={{ objectFit: 'cover' }}
+              className="rounded-xl"
             />
           </motion.div>
 

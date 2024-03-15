@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { Command } from 'cmdk';
 import { Context } from '../context/context';
-import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function SearchMenu({ type }) {
@@ -180,11 +179,11 @@ export default function SearchMenu({ type }) {
                         }}
                         className="cursor-pointer  py-2 px-4 flex flex-row max-w-[300px] w-96 items-center bg-white bg-opacity-0 hover:bg-opacity-5"
                       >
-                        <Image
+                        <img
                           alt={album.name}
                           src={album.images[2].url}
-                          width={50}
-                          height={50}
+                          width="50"
+                          height="50"
                           className="rounded-sm"
                         />
                         <div className="ml-4 text-sm text-white text-opacity-60">
