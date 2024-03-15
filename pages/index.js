@@ -53,7 +53,7 @@ export default function Home() {
                   setColors={setColors}
                 />
                 <Palette colors={colors} />
-                <AlbumPreview selectedAlbum={selectedAlbum} />
+                <AlbumPreview colors={colors} selectedAlbum={selectedAlbum} />
               </div>
             </motion.div>
           ) : (
@@ -61,12 +61,12 @@ export default function Home() {
           )}
         </div>
       </div>
-      <Link
-        href={'/about'}
-        className="mb-4 md:mb-12 text-white/20 hover:text-white/90 transition-all cursor-pointer hover:bg-white/10 px-4 py-2 md:p-4 rounded-md border-2 border-white border-opacity-10"
+      <div
+        onClick={() => window.open('https://twitter.com/malayvasa', '_blank')}
+        className="mb-4 md:mb-12 text-white/40 hover:text-white/90 transition-all cursor-pointer hover:bg-white/10 px-4 py-2 rounded-full border-2 border-white border-opacity-10"
       >
-        About Album 🡢 Palette
-      </Link>
+        Created by Malay Vasa
+      </div>
     </div>
   );
 }

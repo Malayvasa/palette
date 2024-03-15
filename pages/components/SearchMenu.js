@@ -18,6 +18,12 @@ export default function SearchMenu({ type }) {
     setSelectedArtist,
   } = useContext(Context);
 
+  const presetArtists = ['Doja Cat', 'The Weeknd', 'Joji'];
+
+  const presetSearch = (preset) => {
+    setSearchString(preset);
+  };
+
   let GetData = async () => {
     let tokenres = await fetch('/api/spotify?token=true', {
       method: 'POST',
@@ -75,10 +81,29 @@ export default function SearchMenu({ type }) {
 
   return (
     <div className="centered">
+      {
+        <>
+          <div className="text-white/20 mb-2">Examples</div>
+          <div className="flex flex-col max-w-[300px] w-96 overflow-scroll">
+            <div className="mb-4 flex w-max">
+              {presetArtists.map((artist) => (
+                <button
+                  key={artist}
+                  onClick={() => presetSearch(artist)}
+                  className="bg-white/5 w-max text-white/50 text-sm py-2 px-4 rounded-full mr-2 mb-2"
+                >
+                  {artist}
+                </button>
+              ))}
+            </div>
+          </div>
+        </>
+      }
+
       <div>
-        <div className="bg-black bg-opacity-0 rounded-md border-2 border-white border-opacity-10">
-          <div className="flex flex-row gap-2 w-full text-white placeholder-white placeholder-opacity-80 rounded-t-md outline-none bg-white bg-opacity-0  p-2 md:p-4">
-            <div className="opacity-40">
+        <div className="bg-black bg-opacity-0 rounded-2xl border-2 border-white border-opacity-10">
+          <div className="flex flex-row items-center gap-2 w-full text-white placeholder-white placeholder-opacity-80 rounded-t-md outline-none bg-white bg-opacity-0  p-2 md:p-4">
+            <div className="opacity-20">
               <svg
                 width="32px"
                 height="32px"
@@ -98,8 +123,8 @@ export default function SearchMenu({ type }) {
               </svg>
             </div>
             <input
-              className="bg-transparent outline-none w-full text-white placeholder-white placeholder-opacity-80"
-              placeholder={`Search for an ${type}`}
+              className="bg-transparent outline-none w-full text-white placeholder-white/20 placeholder-opacity-80"
+              placeholder={`Search for an album/artist`}
               autoComplete="off"
               id="search"
               value={searchString}
@@ -107,75 +132,69 @@ export default function SearchMenu({ type }) {
                 setSearchString(e.target.value);
               }}
             />
+            {searchString.length > 0 && (
+              <div className="opacity-40" onClick={() => setSearchString('')}>
+                <svg
+                  width="24px"
+                  height="24px"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  color="#fff"
+                >
+                  <path
+                    d="M9.17218 14.8284L12.0006 12M14.829 9.17157L12.0006 12M12.0006 12L9.17218 9.17157M12.0006 12L14.829 14.8284"
+                    stroke="#fff"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                    stroke="#fff"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+              </div>
+            )}
           </div>
-
           {type == 'album' && (
-            <div className=" max-w-[300px] w-96 ">
-              {albums.length > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  key={albums}
-                  className="border-t-2 border-white border-opacity-10 flex flex-col w-full max-h-72 overflow-y-scroll"
-                >
-                  {albums.map((album, key) => (
-                    <div
-                      key={key}
-                      onClick={() => {
-                        handleAlbumSelect(album);
-                      }}
-                      className="cursor-pointer  py-2 px-4 flex flex-row max-w-[300px] w-96 items-center bg-white bg-opacity-0 hover:bg-opacity-5"
-                    >
-                      <img
-                        src={album.images[2].url}
-                        width={50}
-                        height={50}
-                        className="rounded-sm"
-                      />
-                      <div className="ml-4 text-sm text-white text-opacity-60">
-                        {album.name}
-                      </div>
-                    </div>
-                  ))}
-                </motion.div>
-              )}
-            </div>
-          )}
-          {type == 'artist' && (
-            <div className=" max-w-[300px] w-96 ">
-              {artists.length > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  key={artists}
-                  className="border-t-2 border-white border-opacity-10 flex flex-col w-full max-h-72 overflow-y-scroll"
-                >
-                  {artists.map((artist, key) => (
-                    <div
-                      key={key}
-                      onClick={() => {
-                        console.log(artist);
-                        handleArtistSelect(artist);
-                      }}
-                      className="cursor-pointer  py-2 px-4 flex flex-row max-w-[300px] w-96 items-center bg-white bg-opacity-0 hover:bg-opacity-5"
-                    >
-                      {artist.images && artist.images.length > 0 ? (
-                        <img
-                          src={artist.images[2].url}
+            <div className="  max-w-[300px] w-96 ">
+              <AnimatePresence>
+                {albums.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    key={albums}
+                    className=" border-white rounded-b-2xl border-opacity-10 flex flex-col w-full max-h-[300px] overflow-y-scroll"
+                  >
+                    {albums.map((album, key) => (
+                      <div
+                        key={key}
+                        onClick={() => {
+                          handleAlbumSelect(album);
+                        }}
+                        className="cursor-pointer  py-2 px-4 flex flex-row max-w-[300px] w-96 items-center bg-white bg-opacity-0 hover:bg-opacity-5"
+                      >
+                        <Image
+                          alt={album.name}
+                          src={album.images[2].url}
                           width={50}
                           height={50}
                           className="rounded-sm"
                         />
-                      ) : (
-                        <div className="w-[50px] h-[50px] bg-white bg-opacity-10 rounded-sm"></div>
-                      )}
-                      <div className="ml-4 text-sm text-white text-opacity-60">
-                        {artist.name}
+                        <div className="ml-4 text-sm text-white text-opacity-60">
+                          {album.name}
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </motion.div>
-              )}
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           )}
         </div>

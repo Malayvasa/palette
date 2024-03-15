@@ -14,11 +14,7 @@ export default function Palette({ colors }) {
         staggerChildren: 0.05,
       },
     },
-  };
-
-  const inspector = {
-    hidden: { y: 0, opacity: 1 },
-    show: {
+    exit: {
       y: 0,
       opacity: 1,
       transition: {
@@ -30,11 +26,7 @@ export default function Palette({ colors }) {
   const item = {
     hidden: { scale: 1, y: -50, opacity: 0 },
     show: { scale: 1, y: 0, opacity: 1 },
-  };
-
-  const values = {
-    hidden: { scale: 1, y: 50, opacity: 0 },
-    show: { scale: 1, y: 0, opacity: 1 },
+    exit: { scale: 1, y: -50, opacity: 0 },
   };
 
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
@@ -48,12 +40,38 @@ export default function Palette({ colors }) {
   const [paletteHSL, setPaletteHSL] = useState('');
 
   const paletteToast = (mode) => {
-    toast(mode + ' Palette copied to clipboard!');
+    toast.success(mode + ' Palette copied to clipboard!');
   };
 
   const colorToast = (mode) => {
-    toast(mode + ' Color copied to clipboard!');
+    toast.success(mode + ' Color copied to clipboard!');
   };
+
+  function copySVG(hexList) {
+    // convert hexlist to a svg with a row of squares with hex as background color
+    // make as many squares as there are colors in the palette
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" 
+    width="${hexList.length * 100}" 
+    height="100" viewBox="0 0 ${hexList.length * 100} 100">
+    ${hexList
+      .map(
+        (hex, index) =>
+          `<rect width="100" height="100" fill="${hex}" x="${
+            index * 100
+          }" y="0" />`
+      )
+      .join('')}
+    </svg>`;
+
+    // copy svg to clipboard
+    const el = document.createElement('textarea');
+    el.value = svg;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    toast.success('SVG Copied to clipboard!');
+  }
 
   useEffect(() => {
     document.documentElement.style.setProperty('--border-color', colors[0]);
@@ -94,17 +112,16 @@ export default function Palette({ colors }) {
 
   return (
     <div className="my-8 lg:ml-8 flex flex-col gap-0">
-      {colors && (
-        <>
-          <div className="">
-            <motion.div
-              variants={container}
-              initial="hidden"
-              animate="show"
-              exit="hidden"
-              key={colors}
-              className="flex flex-col max-w-[300px] w-96 overflow-hidden border-x-2 border-t-2 border-white border-opacity-10 rounded-t-md p-4 backdrop-blur-xl items-center justify-between bg-black bg-opacity-5"
-            >
+      <AnimatePresence exitBeforeEnter>
+        {colors && (
+          <motion.div
+            variants={container}
+            initial="hidden"
+            animate="show"
+            exit="exit"
+            key={colors}
+          >
+            <div className="flex flex-col max-w-[300px] w-96 overflow-hidden border-x-2 border-t-2 border-white border-opacity-10 rounded-t-2xl p-4 backdrop-blur-xl items-center justify-between bg-black bg-opacity-5">
               <div className="flex w-full justify-between">
                 {colors.map((color, key) => {
                   return (
@@ -125,6 +142,14 @@ export default function Palette({ colors }) {
                 })}
               </div>
               <div className="text-white h-8 gap-2 flex mt-4 justify-between w-full ">
+                <div
+                  onClick={() => {
+                    copySVG(colors);
+                  }}
+                  className="bg-white w-32 cursor-pointer flex items-center justify-center rounded-md bg-opacity-5 hover:bg-opacity-10 transition-colors"
+                >
+                  SVG
+                </div>
                 <CopyToClipboard
                   text={paletteHEX}
                   onCopy={() => {
@@ -156,82 +181,70 @@ export default function Palette({ colors }) {
                   </div>
                 </CopyToClipboard>
               </div>
-            </motion.div>
-          </div>
-
-          <motion.div
-            variants={inspector}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-            key={colors[selectedColorIndex]}
-            className="flex items-start max-w-[300px] w-96 overflow-hidden border-2 border-white border-opacity-10 rounded-b-md space-x-2 flex-row p-4 backdrop-blur-xl r justify-between bg-black bg-opacity-5"
-          >
-            <motion.div
-              variants={values}
-              key={colors[selectedColorIndex]}
-              className="w-8 h-8 aspect-square rounded-md"
-              style={{ backgroundColor: colors[selectedColorIndex] }}
-            ></motion.div>
-            <div className="flex gap-2 flex-col flex-grow text-white text-opacity-60">
-              <CopyToClipboard
-                text={colors[selectedColorIndex]}
-                onCopy={() => {
-                  colorToast('HEX');
-                }}
-              >
-                <motion.div
-                  className="w-full cursor-pointer h-8 px-2 justify-between rounded-md flex items-center bg-white bg-opacity-5 hover:bg-opacity-10 transition-colors"
-                  variants={values}
-                  key={colors[selectedColorIndex]}
-                >
-                  <div className="text-white text-opacity-20">HEX</div>
-                  {colors[selectedColorIndex]}
-                </motion.div>
-              </CopyToClipboard>
-              <CopyToClipboard
-                text={Color(colors[selectedColorIndex])
-                  .rgb()
-                  .array()
-                  .join(', ')}
-                onCopy={() => {
-                  colorToast('RGB');
-                }}
-              >
-                <motion.div
-                  className="w-full cursor-pointer h-8 px-2 justify-between rounded-md flex items-center bg-white bg-opacity-5 hover:bg-opacity-10 transition-colors"
-                  variants={values}
-                  key={colors[selectedColorIndex]}
-                >
-                  <div className="text-white text-opacity-20">RGB</div>
-                  {Color(colors[selectedColorIndex]).rgb().array().join(', ')}
-                </motion.div>
-              </CopyToClipboard>
-              <CopyToClipboard
-                text={`hsl(${selectedColorHSL.h.toFixed(
-                  2
-                )}°, ${selectedColorHSL.s.toFixed(
-                  0
-                )}%, ${selectedColorHSL.l.toFixed(0)}%)`}
-                onCopy={() => {
-                  colorToast('HSL');
-                }}
-              >
-                <motion.div
-                  className="w-full cursor-pointer h-8 px-2 justify-between rounded-md flex items-center bg-white bg-opacity-5 hover:bg-opacity-10 transition-colors"
-                  variants={values}
-                  key={colors[selectedColorIndex]}
-                >
-                  <div className="text-white text-opacity-20">HSL</div>
-                  {selectedColorHSL.h.toFixed(2)}°{' '}
-                  {selectedColorHSL.s.toFixed(0)}%{' '}
-                  {selectedColorHSL.l.toFixed(0)}%
-                </motion.div>
-              </CopyToClipboard>
             </div>
+
+            <motion.div
+              variants={container}
+              initial="hidden"
+              animate="show"
+              exit="hidden"
+              key={colors[selectedColorIndex]}
+              className="flex items-start max-w-[300px] w-96 overflow-hidden border-2 border-white border-opacity-10 rounded-b-2xl space-x-2 flex-row p-4 backdrop-blur-xl r justify-between bg-black bg-opacity-5"
+            >
+              <motion.div
+                variants={item}
+                key={colors[selectedColorIndex]}
+                className="w-8 h-8 aspect-square rounded-md"
+                style={{ backgroundColor: colors[selectedColorIndex] }}
+              ></motion.div>
+              <div className="flex gap-2 flex-col flex-grow text-white text-opacity-60">
+                <CopyToClipboard
+                  text={colors[selectedColorIndex]}
+                  onCopy={() => {
+                    colorToast('HEX');
+                  }}
+                >
+                  <div className="w-full cursor-pointer h-8 px-2 justify-between rounded-md flex items-center bg-white bg-opacity-5 hover:bg-opacity-10 transition-colors">
+                    <div className="text-white text-opacity-20">HEX</div>
+                    {colors[selectedColorIndex]}
+                  </div>
+                </CopyToClipboard>
+                <CopyToClipboard
+                  text={Color(colors[selectedColorIndex])
+                    .rgb()
+                    .array()
+                    .join(', ')}
+                  onCopy={() => {
+                    colorToast('RGB');
+                  }}
+                >
+                  <div className="w-full cursor-pointer h-8 px-2 justify-between rounded-md flex items-center bg-white bg-opacity-5 hover:bg-opacity-10 transition-colors">
+                    <div className="text-white text-opacity-20">RGB</div>
+                    {Color(colors[selectedColorIndex]).rgb().array().join(', ')}
+                  </div>
+                </CopyToClipboard>
+                <CopyToClipboard
+                  text={`hsl(${selectedColorHSL.h.toFixed(
+                    2
+                  )}°, ${selectedColorHSL.s.toFixed(
+                    0
+                  )}%, ${selectedColorHSL.l.toFixed(0)}%)`}
+                  onCopy={() => {
+                    colorToast('HSL');
+                  }}
+                >
+                  <div className="w-full cursor-pointer h-8 px-2 justify-between rounded-md flex items-center bg-white bg-opacity-5 hover:bg-opacity-10 transition-colors">
+                    <div className="text-white text-opacity-20">HSL</div>
+                    {selectedColorHSL.h.toFixed(2)}°{' '}
+                    {selectedColorHSL.s.toFixed(0)}%{' '}
+                    {selectedColorHSL.l.toFixed(0)}%
+                  </div>
+                </CopyToClipboard>
+              </div>
+            </motion.div>
           </motion.div>
-        </>
-      )}
+        )}
+      </AnimatePresence>
     </div>
   );
 }

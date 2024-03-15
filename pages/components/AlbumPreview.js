@@ -1,7 +1,11 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Palette from './Palette';
+import colorify from 'colorify.js';
 
-export default function AlbumPreview({ selectedAlbum }) {
+export default function AlbumPreview({ colors, selectedAlbum }) {
+  const [flipped, setFlipped] = useState(false);
   useEffect(() => {
     document.documentElement.style.setProperty(
       '--image',
@@ -10,48 +14,40 @@ export default function AlbumPreview({ selectedAlbum }) {
   }, [selectedAlbum]);
 
   return (
-    <div className="relative">
+    <div className="relative h-full">
       {selectedAlbum && (
         <>
           <motion.div
             initial={{
-              y: 0,
-              opacity: 0,
-              translateX: '-50%',
-              translateY: '-50%',
+              translate: '-50% -50%',
+              top: '50%',
+              left: '50%',
             }}
             animate={{
-              y: 0,
-              opacity: 1,
-              translateX: '-50%',
-              translateY: '-50%',
+              transformOrigin: 'center',
+              translate: '-50% -50%',
+              top: '50%',
+              left: '50%',
+              zIndex: 20,
             }}
-            exit={{
-              y: 0,
-              opacity: 0,
-              translateX: '-50%',
-              translateY: '-50%',
+            transition={{
+              duration: 0.5,
+              type: 'spring',
             }}
-            transition={{ duration: 1 }}
-            key={selectedAlbum.name}
-            id="albumPreview"
-            className="z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-2xl albumImage rounded-md w-[250px] md:w-[300px] xl:w-[500px] aspect-square"
-          ></motion.div>
-          <div className="z-0 relative conic  p-8 md:p-12">
-            <motion.div
-              initial={{ y: -10, opacity: 0.5 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 10, opacity: 0.5 }}
-              transition={{ duration: 1 }}
-              key={selectedAlbum.name}
-              className="relative"
-            >
-              <div
-                id="albumPreview"
-                className="blur-xl opacity-30 albumImage rounded-md w-[250px] md:w-[300px] xl:w-[500px] aspect-square"
-              ></div>
-            </motion.div>
-          </div>
+            className="absolute w-[250px] md:w-[300px] xl:w-[400px] aspect-square  "
+          >
+            <Image
+              priority
+              src={selectedAlbum.images[0].url}
+              alt={`Cover of the album ${selectedAlbum.name}`}
+              width={400}
+              height={400}
+              objectFit="cover"
+              className="rounded-xl "
+            />
+          </motion.div>
+
+          <div className="z-0 relative conic shadow-xl w-[250px] md:w-[300px] xl:w-[500px] aspect-square p-8 md:p-12"></div>
         </>
       )}
     </div>

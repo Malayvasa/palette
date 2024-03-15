@@ -34,10 +34,10 @@ body {
 
 .customBorder {
   /* background-color: var(--border-color); */
-  border-radius: 12px;
+  border-radius: 16px;
 }
 .conic {
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
 }
 
@@ -54,7 +54,7 @@ body {
   background-image: conic-gradient(
     transparent 30%,
     var(--border-color) 50%,
-    transparent 100%
+    transparent 70%
   );
   animation: rotate 18s linear infinite;
 }
@@ -67,7 +67,7 @@ body {
   width: calc(100% - 12px);
   height: calc(100% - 12px);
   background: rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
+  border-radius: 8px;
 }
 
 .before_conic_title {
